@@ -1,0 +1,80 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A user of the PlayTok app.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "tokens": { "type": "number", "description": "Tokens (Naira) used to create games." },
+        "role": { "type": "string", "enum": ["admin", "user"] },
+        "createdAt": { "type": "timestamp" }
+      },
+      "required": ["uid", "email", "displayName", "tokens", "role", "createdAt"]
+    },
+    "Game": {
+      "title": "Game",
+      "description": "A mini-game created by a user or built-in.",
+      "type": "object",
+      "properties": {
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorPhoto": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "code": { "type": "string", "description": "React component code for the game." },
+        "likesCount": { "type": "number" },
+        "commentsCount": { "type": "number" },
+        "sharesCount": { "type": "number" },
+        "createdAt": { "type": "timestamp" }
+      },
+      "required": ["authorId", "authorName", "title", "description", "code", "likesCount", "commentsCount", "sharesCount", "createdAt"]
+    },
+    "Like": {
+      "title": "Like",
+      "description": "A record of a user liking a game.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "gameId": { "type": "string" },
+        "createdAt": { "type": "timestamp" }
+      },
+      "required": ["userId", "gameId", "createdAt"]
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "A comment on a game.",
+      "type": "object",
+      "properties": {
+        "gameId": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userPhoto": { "type": "string" },
+        "text": { "type": "string" },
+        "createdAt": { "type": "timestamp" }
+      },
+      "required": ["gameId", "userId", "userName", "text", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles."
+    },
+    "/games/{gameId}": {
+      "schema": "Game",
+      "description": "Games feed."
+    },
+    "/likes/{likeId}": {
+      "schema": "Like",
+      "description": "Likes on games. ID is userId_gameId."
+    },
+    "/comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Comments on games."
+    }
+  }
+}

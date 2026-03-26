@@ -1,0 +1,5 @@
+{
+  "name": "PlayTok",
+  "description": "A TikTok-style feed where every scroll is a new playable mini-game.",
+  "requestFramePermissions": []
+}
